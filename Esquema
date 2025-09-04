@@ -1,0 +1,89 @@
+Tablas principales
+
+actor: información de actores.
+
+film: información de películas.
+
+category: géneros de las películas.
+
+film_actor: relación muchos a muchos entre películas y actores.
+
+film_category: relación muchos a muchos entre películas y categorías.
+
+language: idiomas de las películas.
+
+inventory: copias físicas de películas en una tienda.
+
+store: tiendas físicas.
+
+staff: empleados de cada tienda.
+
+customer: clientes registrados.
+
+rental: registros de alquileres de películas.
+
+payment: pagos de clientes.
+
+address, city, country: tablas de localización.
+
+
+
+Relaciones principales
+
+film.language_id → language.language_id
+
+film.original_language_id → language.language_id
+
+film_actor.actor_id → actor.actor_id
+
+film_actor.film_id → film.film_id
+
+film_category.film_id → film.film_id
+
+film_category.category_id → category.category_id
+
+inventory.film_id → film.film_id
+
+inventory.store_id → store.store_id
+
+rental.inventory_id → inventory.inventory_id
+
+rental.customer_id → customer.customer_id
+
+rental.staff_id → staff.staff_id
+
+payment.customer_id → customer.customer_id
+
+payment.rental_id → rental.rental_id
+
+payment.staff_id → staff.staff_id
+
+customer.address_id → address.address_id
+
+customer.store_id → store.store_id
+
+staff.address_id → address.address_id
+
+staff.store_id → store.store_id
+
+store.manager_staff_id → staff.staff_id
+
+store.address_id → address.address_id
+
+address.city_id → city.city_id
+
+city.country_id → country.country_id
+
+ Representación simplificada en texto 
+actor --< film_actor >-- film --< film_category >-- category
+                          |
+                          v
+                      language
+
+film --< inventory >-- store --< staff
+                          |
+                          v
+                       address -- city -- country
+                          |
+                          v
+                       customer --< rental >-- payment
